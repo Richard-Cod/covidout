@@ -8,3 +8,4 @@ CovidOut est une plateforme développée par les étudiants de l'ISM pour contri
 *  Une cartographie des sites d'hébergement des malades ou suspects
 "# covidout" 
 "# covidout" 
+"# covidout" 
