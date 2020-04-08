@@ -12,3 +12,4 @@ CovidOut est une plateforme développée par les étudiants de l'ISM pour contri
 "# covidout" 
 "# covidout" 
 "# covidout" 
+"# covidout" 
