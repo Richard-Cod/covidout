@@ -7,3 +7,4 @@ CovidOut est une plateforme développée par les étudiants de l'ISM pour contri
 *  La gestion de remise de dons
 *  Une cartographie des sites d'hébergement des malades ou suspects
 "# covidout" 
+"# covidout" 
