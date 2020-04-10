@@ -11,6 +11,9 @@ import phonenumbers
 from models import *
 from validate_email import validate_email as ve
 
+
+from helper import qSav ,qEx
+
 class RegistrationForm(FlaskForm):
     username = StringField("Nom d'utilisateur", validators=[DataRequired()])
     password = PasswordField('Mot de passe', validators=[DataRequired()])
@@ -61,36 +64,35 @@ class ProfileForm(FlaskForm):
 
 class ExamenForm(FlaskForm):
     age = IntegerField(widget=NumberInput())
-    sexe=RadioField('Sexe', choices=[('Homme','Homme'),('Femme','Femme')])
-    touxrecente = RadioField('Avez vous eu une toux récente ?', choices=[('Oui','Oui'),('Non','Non')])
-    respirer = RadioField('Avez vous eu des difficultés à respirer ?', choices=[('Oui','Oui'),('Non','Non')])
+    sexe=RadioField(qEx["sexe"]["q"], choices=qEx["sexe"]["c"])
+    touxrecente = RadioField(qEx["touxrecente"]["q"], choices=qEx["touxrecente"]["c"])
+    respirer = RadioField(qEx["respirer"]["q"], choices=qEx["respirer"]["c"])
 
-    fievreSensation = RadioField('Avez vous eu une sensation de fièvre ?', choices=[('Oui','Oui'),('Non','Non')])
-    fievre = RadioField('Avez vous eu de la fièvre ?', choices=[('Oui','Oui'),('Non','Non')])
-    malGorge = RadioField('Avez vous eu un mal de gorge ?', choices=[('Oui','Oui'),('Non','Non')])
-    impossibiliteManger = RadioField('Avez vous eu une impossibilité de manger ou boire depuis 24 heures ou plus ?', choices=[('Oui','Oui'),('Non','Non')])
+    fievreSensation = RadioField(qEx["fievreSensation"]["q"], choices=qEx["fievreSensation"]["c"])
+    fievre = RadioField(qEx["fievre"]["q"], choices=qEx["fievre"]["c"])
+    malGorge = RadioField(qEx["malGorge"]["q"], choices=qEx["malGorge"]["c"])
+    impossibiliteManger = RadioField(qEx["impossibiliteManger"]["q"], choices=qEx["impossibiliteManger"]["c"])
     
-    courbatures = RadioField('Avez-vous des courbatures en dehors des douleurs musculaires liées à une activité sportive intense ?', choices=[('Oui','Oui'),('Non','Non')])
-    perteOrdorat = RadioField('Avez-vous perdu l’odorat de manière brutale sans rapport avec le nez bouché ?', choices=[('Oui','Oui'),('Non','Non')])
-    diarrhee = RadioField('Avez-vous la diarrhée ?', choices=[('Oui','Oui'),('Non','Non')])
-    maladieConnu = RadioField('Avez-vous une autre maladie connue ?', choices=[('Oui','Oui'),('Non','Non')])
+    courbatures = RadioField(qEx["courbatures"]["q"], choices=qEx["courbatures"]["c"])
+    perteOrdorat = RadioField(qEx["perteOrdorat"]["q"], choices=qEx["perteOrdorat"]["c"])
+    diarrhee = RadioField(qEx["diarrhee"]["q"], choices=qEx["diarrhee"]["c"])
+    maladieConnu = RadioField(qEx["maladieConnu"]["q"], choices=qEx["maladieConnu"]["c"])
 
 
 class SavoirForm(FlaskForm):
-    modeTransmission=RadioField('Comment la maladie à coronavirus (COVID-19) se transmet-elle ?', choices=[('V','Par des gouttelettes respiratoires produites par une personne qui tousse ou éternue'),('F','En touchant des surfaces contaminées par le virus et en se touchant ensuite le visage'),('Les deux ','Les deux V')])
-    touxrecente = RadioField('Mon animal de compagnie peut-il me transmettre la maladie à coronavirus (COVID-19) ?', choices=[('F','Oui'),('V','NonV')])
-    respirer = RadioField('Avez vous eu des difficultés à respirer ?', choices=[('Oui','Oui'),('Non','Non')])
+    modeTransmission=RadioField(qSav["modeTransmission"]["q"], choices=qSav["modeTransmission"]["c"])
+    animalCompagnie = RadioField(qSav["animalCompagnie"]["q"], choices=qSav["animalCompagnie"]["c"])
 
-    fievreSensation = RadioField('Avez vous eu une sensation de fièvre ?', choices=[('Oui','Oui'),('Non','Non')])
-    fievre = RadioField('Avez vous eu de la fièvre ?', choices=[('Oui','Oui'),('Non','Non')])
-    malGorge = RadioField('Avez vous eu un mal de gorge ?', choices=[('Oui','Oui'),('Non','Non')])
-    impossibiliteManger = RadioField('Avez vous eu une impossibilité de manger ou boire depuis 24 heures ou plus ?', choices=[('Oui','Oui'),('Non','Non')])
-    
-    courbatures = RadioField('Avez-vous des courbatures en dehors des douleurs musculaires liées à une activité sportive intense ?', choices=[('Oui','Oui'),('Non','Non')])
-    perteOrdorat = RadioField('Avez-vous perdu l’odorat de manière brutale sans rapport avec le nez bouché ?', choices=[('Oui','Oui'),('Non','Non')])
-    diarrhee = RadioField('Avez-vous la diarrhée ?', choices=[('Oui','Oui'),('Non','Non')])
-    maladieConnu = RadioField('Avez-vous une autre maladie connue ?', choices=[('Oui','Oui'),('Non','Non')])
+    maniereEviter=RadioField(qSav["maniereEviter"]["q"], choices=qSav["maniereEviter"]["c"])
+    personneTouche=RadioField(qSav["personneTouche"]["q"], choices=qSav["personneTouche"]["c"])
 
+    alcool=RadioField(qSav["alcool"]["q"], choices=qSav["alcool"]["c"])
+    traitement=RadioField(qSav["traitement"]["q"], choices=qSav["traitement"]["c"])
+    temps=RadioField(qSav["temps"]["q"], choices=qSav["temps"]["c"])
+    comparable=RadioField(qSav["comparable"]["q"], choices=qSav["comparable"]["c"])
+    climat=RadioField(qSav["climat"]["q"], choices=qSav["climat"]["c"])
+    produitsContamine=RadioField(qSav["produitsContamine"]["q"], choices=qSav["produitsContamine"]["c"])
+ 
 
 
 

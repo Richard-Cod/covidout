@@ -21,6 +21,7 @@ def stats():
 
 
 @app.route('/examen', methods=['GET', 'POST'])
+@login_required
 def examen():
     form = ExamenForm(formdata=request.form)
     if request.method == 'POST':
@@ -30,6 +31,7 @@ def examen():
             obj.save_to_db()
 
             flash(f"Super ! Vous avez bien rempli vous recevrez un mail avec les résultats ",'info')
+            return redirect(url_for("examen"))
 
         elif request.method == 'POST':
             flash(f"Remplissez toutes les questions s'il vous plaît",'error')
@@ -39,16 +41,19 @@ def examen():
 
 
 @app.route('/don', methods=['GET', 'POST'])
+@login_required
 def don():
-    form = DonForm(formdata=request.form)
+    form = DonForm()
     if request.method == 'POST':
+        form = DonForm(formdata=request.form)
         if form.validate_on_submit():
             obj = Don()
             obj.populate_from_form(form)
             obj.save_to_db()
 
-
             flash(f"Super ! Votre don a été pris en compte ",'info')
+
+            return redirect(url_for('don'))
 
         elif request.method == 'POST':
             flash(f"Remplissez correctement  svp",'error')
@@ -57,7 +62,30 @@ def don():
 
 
 
+@app.route('/savoir', methods=['GET', 'POST'])
+@login_required
+def savoir():
+    form = SavoirForm(formdata=request.form)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            obj = Savoir()
+            obj.populate_from_form(form)
+            obj.save_to_db()
+
+
+
+            flash(f"Super ! Votre savoir a été pris en compte ",'info')
+            return redirect(url_for("savoir"))
+
+        elif request.method == 'POST':
+            flash(f"Remplissez correctement  svp",'error')
+            print(form.errors)
+    return render_template('client/savoir.html',form=form,titre="Testons vos connaissances ")
+
+
+
 @app.route('/declaration', methods=['GET', 'POST'])
+@login_required
 def declaration():
     form = DeclarationForm(formdata=request.form)
     if request.method == 'POST':
@@ -67,11 +95,12 @@ def declaration():
             obj.save_to_db()
 
             flash(f"Super ! Votre declaration a été prise en compte ",'info')
+            return redirect(url_for('declaration'))
 
         elif request.method == 'POST':
             flash(f"Remplissez correctement  svp",'error')
             print(form.errors)
-    return render_template('client/DonForm.html',form=form,titre="Faites une déclaration ")
+    return render_template('client/DonForm.html',form=form,titre="Faites une déclaration ( informez des cas suspects) ")
 
 
 
@@ -139,6 +168,7 @@ def register():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))

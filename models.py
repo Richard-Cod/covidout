@@ -25,10 +25,12 @@ class User(UserMixin,db.Model):
 
 	profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
 
-	examen_id = db.Column(db.Integer, db.ForeignKey('examen.id'))
+	examens = db.relationship('Examen', backref='user', lazy="dynamic",cascade="save-update, merge, delete")
 	
 	declarationSuspects =db.relationship('DeclarationSuspect', backref='user', lazy="dynamic",cascade="save-update, merge, delete")
 	dons = db.relationship('Don', backref='user', lazy="dynamic",cascade="save-update, merge, delete")
+
+	savoirs = db.relationship('Savoir', backref='user', lazy="dynamic",cascade="save-update, merge, delete")
 
 
 	def set_password(self, password):
@@ -56,7 +58,7 @@ class Profile(db.Model):
 
 class Examen(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	user = db.relationship('User',lazy=True,backref='examen',cascade="save-update, merge, delete",uselist=False)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
 	created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 	age = db.Column(db.String(12), index=True)
@@ -92,6 +94,58 @@ class Examen(db.Model):
 		self.perteOrdorat = form.perteOrdorat.data
 		self.diarrhee = form.diarrhee.data
 		self.maladieConnu = form.maladieConnu.data
+
+
+    
+
+	def __repr__(self):
+		return f'<Examen de {self.user} >'
+
+
+class Savoir(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
+	created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+	modeTransmission = db.Column(db.String(12), index=True)
+	animalCompagnie = db.Column(db.String(12), index=True)
+	maniereEviter = db.Column(db.String(12), index=True)
+	personneTouche = db.Column(db.String(12), index=True)
+
+	alcool = db.Column(db.String(12), index=True)
+	traitement = db.Column(db.String(12), index=True)
+	temps = db.Column(db.String(12), index=True)
+	comparable = db.Column(db.String(12), index=True)
+
+	climat = db.Column(db.String(12), index=True)
+	produitsContamine = db.Column(db.String(12), index=True)
+
+
+	def save_to_db(self):
+		db.session.add(self)
+		db.session.commit()
+
+	def populate_from_form(self,form):
+		self.user= current_user
+		self.modeTransmission = form.modeTransmission.data
+		self.animalCompagnie = form.animalCompagnie.data
+		self.maniereEviter = form.maniereEviter.data
+		self.personneTouche = form.personneTouche.data
+		self.alcool = form.alcool.data
+		self.traitement = form.traitement.data
+		self.temps = form.temps.data
+		self.comparable = form.comparable.data
+		self.climat = form.climat.data
+		self.produitsContamine = form.produitsContamine.data
+
+
+
+	def get_note(self):
+		note = 0
+		for attr, value in self.__dict__.items():
+			if value == "V":
+				note+=1
+		return note
 
 
     

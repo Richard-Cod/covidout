@@ -7,7 +7,7 @@
 
           
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Liste de declaration</h1>
+          <h1 class="h3 mb-2 text-gray-800">Liste de savoirs </h1>
          
 
 
@@ -15,7 +15,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h4 class="m-0 font-weight-bold text-primary">declaration</h4>
+              <h4 class="m-0 font-weight-bold text-primary">savoir</h4>
 
             </div>
             <div class="card-body">
@@ -28,13 +28,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                      {% for declaration in declarations %}
+                      {% for savoir in savoirs %}
 
                         <tr>
-                          <td>{{declaration.user.username}}</td>
+                          <td>{{savoir.user.username}}</td>
 
                           <td class="text-center">
-                            <a href="{{url_for('declaration_voir',id=declaration.id)}}">Voir</a>
+                            <a href="{{url_for('savoir_voir',id=savoir.id)}}">Voir</a>
                             <a href="">Modifier</a>
                             <a onclick="return confirm('supprimer ?')" href="">Supprimer</a>
                           </td>

@@ -44,3 +44,15 @@ def declaration_liste():
 def declaration_voir(id):
 	declaration = DeclarationSuspect.query.get(id)
 	return render_template('admin/declarations/voir.html',declaration=declaration)
+
+
+
+@app.route('/ad/savoir/liste/')
+def savoir_liste():
+	savoirs = Savoir.query.all()
+	return render_template('admin/savoir/liste.html',savoirs=savoirs)
+
+@app.route('/ad/savoir/<id>')
+def savoir_voir(id):
+	savoir = Savoir.query.get(id)
+	return render_template('admin/savoir/voir.html',savoir=savoir)
